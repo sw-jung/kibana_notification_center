@@ -3,11 +3,11 @@ import { resolve } from 'path';
 
 export default function (kibana) {
   const translations = (function getTranslations(translationsPath) {
-    readdirSync(translationsPath)
-    .map(function toPath(filename) {
+    return readdirSync(translationsPath)
+    .map(filename => {
       return resolve(translationsPath, filename);
     })
-    .filter(function isFile(filepath) {
+    .filter(filepath => {
       return lstatSync(filepath).isFile();
     });
   }(resolve(__dirname, 'translations')));
@@ -19,8 +19,8 @@ export default function (kibana) {
 
       translations,
 
-      hacks: [
-        'plugins/notification_center/hack'
+      chromeNavControls: [
+        'plugins/notification_center/nav_control'
       ]
 
     },

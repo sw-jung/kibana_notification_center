@@ -1,0 +1,52 @@
+<div class="kuiView">
+  <div class="kuiViewContent">
+    <div
+      class="kuiViewContentItem">
+      <div class="kuiHeaderBar">
+        <div class="kuiHeaderBarSection">
+          <h2 class="kuiSubTitle">Notification Center</h2>
+        </div>
+        <div class="kuiHeaderBarSection">
+          <div class="kuiText">
+            <a class="kuiMenuButton kuiMenuButton--basic" ng-show="notifs.length" ng-click="notifs.remove()">Clear all {{notifs.length}} items</a>
+          </div>
+        </div>
+      </div>
+      <div class="kuiMenu kuiVerticalRhythm">
+        <div class="kuiMenuItem" ng-show="!notifs.length">
+          <p class="kuiText kuiSubduedText">
+            No new notifications.
+          </p>
+        </div>
+        <div
+          class="kuiMenuItem"
+          ng-repeat="notif in notifs | orderBy : 'timestamp' : true">
+          <div class="kuiEvent">
+            <div class="kuiEventSymbol">
+              <span class="kuiIcon" ng-class="getNotificationClasses(notif)"></span>
+            </div>
+            <div class="kuiEventBody">
+              <div class="kuiEventBody__message kuiActionItem">
+                <kbn-truncated
+                  ng-if="notif.content"
+                  source="{{notif.content | markdown}}"
+                  is-html="true"
+                  length="250"
+                ></kbn-truncated>
+                <div class="kuiMenuButtonGroup">
+                  <button
+                    type="button"
+                    class="kuiMenuButton kuiMenuButton--basic"
+                    ng-click="notifs.remove(notif)">
+                    Clear
+                  </button>
+                </div>
+              </div>
+              <div class="kuiEventBody__metadata">{{moment(notif.timestamp).format(dateFormat)}}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
