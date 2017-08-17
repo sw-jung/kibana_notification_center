@@ -42,7 +42,42 @@
                   </button>
                 </div>
               </div>
-              <div class="kuiEventBody__metadata">{{moment(notif.timestamp).format(dateFormat)}}</div>
+              <div class="kuiEventBody__metadata kuiActionItem">
+                <date>{{moment(notif.timestamp).format(dateFormat)}}</date>
+                <div class="kuiMenuButtonGroup">
+                  <button
+                    type="button"
+                    ng-if="notif.stack && !notif.showStackInCenter"
+                    class="kuiMenuButton kuiMenuButton--basic"
+                    ng-click="notif.showStackInCenter = true"
+                  >More Info</button>
+                  <button
+                    type="button"
+                    ng-if="notif.stack && notif.showStackInCenter"
+                    class="kuiMenuButton kuiMenuButton--basic"
+                    ng-click="notif.showStackInCenter = false"
+                  >Less Info</button>
+                  <button
+                    type="button"
+                    ng-if="notif.address"
+                    class="kuiMenuButton kuiMenuButton--basic"
+                    ng-click="notif.address()"
+                  >Fix it</button>
+                  <button
+                    type="button"
+                    class="btn"
+                    ng-repeat="action in notif.customActions"
+                    ng-click="action.callback()"
+                    ng-bind="action.key"
+                  ></button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div ng-if="notif.stack && notif.showStackInCenter">
+            <div class="kuiMenuItem notification-stack" ng-repeat="stack in notif.stacks">
+              <pre class="well well-sm" ng-bind="stack"></pre>
             </div>
           </div>
         </div>

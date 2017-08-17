@@ -1,4 +1,4 @@
-import { find, isArray, remove, chain, pick } from 'lodash';
+import { find, isArray, remove, chain, pick, defaults, union } from 'lodash';
 
 const NOT_INSERTABLE_ERROR = new Error('StoredNotifications cannot insert directly. Please use `StoredNotifications.merge`.');
 export class StoredNotifications extends Array {
@@ -18,16 +18,14 @@ export class StoredNotifications extends Array {
       const timestamp = new Date().valueOf();
       const freshItems = chain(items)
       .filter(item => {
-        const mergeable = find(this, pick(item, ['type', 'content', 'stack', 'title', 'icon']));
+        const mergeable = find(this, pick(item, ['type', 'content']));
         if (mergeable) {
           mergeable.count += (item.count || 1);
+          mergeable.stacks = union(mergeable.stacks, item.stacks);
         }
         return !mergeable;
       })
-      .map(item => chain(item)
-        .defaults({ timestamp, count: 1 })
-        .pick(['timestamp', 'type', 'content', 'stack', 'title', 'icon', 'count'])
-        .value());
+      .map(item => defaults(item, { timestamp, count: 1 }));
       const result = super.push(...freshItems);
       this.save();
       return result;
@@ -40,7 +38,9 @@ export class StoredNotifications extends Array {
     };
 
     this.save = () => {
-      localStorage.setItem(this.key, JSON.stringify(this));
+      const requiredFields = ['timestamp', 'type', 'content', 'stack', 'stacks', 'title', 'icon', 'count'];
+      const items = this.map(item => pick(item,requiredFields));
+      localStorage.setItem(this.key, JSON.stringify(items));
       return this;
     };
 
