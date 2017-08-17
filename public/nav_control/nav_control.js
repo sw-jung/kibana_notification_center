@@ -15,12 +15,9 @@ registry.register(constant({
 const module = uiModules.get('notification_center', []);
 module.controller('notificationCenterNavController', ($scope, $compile, $document, NotificationCenter) => {
   function initNotificationCenter() {
-    const $elem = $scope.$notificationCenter = $compile('<notification-center></notification-center>')($scope).appendTo('.app-wrapper');
-    $document.on('click', ({ target }) => {
-      if (target !== $elem[0] && !$elem[0].contains(target)) {
-        $elem.hide();
-      }
-    });
+    const $elem = $scope.$notificationCenter = $compile('<notification-center/>')($scope).appendTo('.app-wrapper');
+    $document.on('click', () => $elem.hide());
+    $elem.on('click', e => e.stopPropagation());
   };
 
   $scope.openNotificationCenter = event => {
