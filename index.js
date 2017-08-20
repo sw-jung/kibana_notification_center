@@ -1,5 +1,6 @@
 import { readdirSync, lstatSync } from 'fs';
 import { resolve } from 'path';
+import { init } from './server/init';
 
 export default function (kibana) {
   const translations = (function getTranslations(translationsPath) {
@@ -13,6 +14,8 @@ export default function (kibana) {
   }(resolve(__dirname, 'translations')));
 
   return new kibana.Plugin({
+    id: 'notification_center',
+    configPrefix: 'notification_center',
     require: ['elasticsearch'],
     name: 'notification_center',
     uiExports: {
@@ -28,8 +31,21 @@ export default function (kibana) {
     config(Joi) {
       return Joi.object({
         enabled: Joi.boolean().default(true),
+        index: Joi.string().default('notification-%{+YYYY.MM.DD}'),
+        template: Joi.object({
+          name: Joi.string().default('notification_center_template'),
+          overwrite: Joi.boolean().default(false)
+        }).default(),
+        api: Joi.object({
+          enabled: Joi.boolean().default(true),
+          pull: Joi.object({
+            maxSize: Joi.number().default(100)
+          }).default()
+        }).default()
       }).default();
-    }
+    },
+
+    init
 
   });
 };

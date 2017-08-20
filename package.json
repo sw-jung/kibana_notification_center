@@ -21,5 +21,13 @@
     "eslint": "1.10.3",
     "eslint-plugin-mocha": "1.1.0",
     "expect.js": "^0.3.1"
+  },
+  "dependencies": {
+    "bluebird": "^3.5.0",
+    "joi": "^10.6.0",
+    "lodash": "^4.17.4",
+    "moment": "^2.18.1",
+    "moment-timezone": "^0.5.13",
+    "twix": "^1.2.0"
   }
 }
