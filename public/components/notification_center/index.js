@@ -1,19 +1,29 @@
 import { chain } from 'lodash';
 import { element } from 'angular';
-import moment from 'moment';
+import moment from 'moment-timezone';
 import uiModules from 'ui/modules';
 import Notifier from 'ui/notify';
-import { getNotificationClasses } from './lib/get_notification_classes';
 import { StoredNotifications } from './lib/stored_notifications';
+import { StoredConfig } from './lib/stored_config';
+import { pollingNotifications } from './lib/polling_notifications';
+import { getNotificationClasses } from './lib/get_notification_classes';
 import template from './template.html';
 import './index.less';
 
 const module = uiModules.get('notification_center', []);
 
-module.service('NotificationCenter', ($rootScope, $compile) => {
+module.run(pollingNotifications);
+
+module.service('NotificationCenter', () => {
   const notifications = new StoredNotifications().load();
+  const config = new StoredConfig({
+    pollingInterval: 10000,
+    lastPulledAt: Date.now()
+  }).load().save();
+
   return {
-    notifications
+    notifications,
+    config
   };
 });
 
