@@ -14,11 +14,12 @@ export function push(server) {
     method: ['POST', 'PUT'],
     handler(request, reply) {
       const { payload } = request;
+      const timestamp = Date.now();
 
       callWithRequest(request, 'index', {
-        index: parseWithTimestamp(index, moment(payload.timestamp)),
+        index: parseWithTimestamp(index, moment(timestamp)),
         type,
-        body: payload
+        body: extend(payload, { timestamp })
       })
       .then(resp => {
         return reply(constants.RESPONSE.OK);
@@ -30,7 +31,6 @@ export function push(server) {
       validate: {
         payload: Joi.object({
           type: Joi.string().only('error', 'warning', 'info').default('info'),
-          timestamp: Joi.date().default(Date.now, 'Notify at now.'),
           content: Joi.string().required()
         })
       }
