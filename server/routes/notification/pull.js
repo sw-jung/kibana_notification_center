@@ -30,11 +30,11 @@ export function pull(server) {
           const rangeQueries = [];
 
           if (from) {
-            rangeQueries.push(set({}, 'range.timestamp.gte', moment(from).valueOf()));
+            rangeQueries.push(set({}, 'range.timestamp.gt', moment(from).valueOf()));
           }
 
           if (to) {
-            rangeQueries.push(set({}, 'range.timestamp.lte', moment(to).valueOf()));
+            rangeQueries.push(set({}, 'range.timestamp.lt', moment(to).valueOf()));
           }
 
           return rangeQueries.length ? set({}, 'query.bool.must', rangeQueries) : undefined;
