@@ -1,5 +1,6 @@
 import { chain } from 'lodash';
 import { getVisible, addBasePath } from 'ui/chrome';
+import { addSystemApiHeader } from 'ui/system_api';
 
 export function pollingNotifications($timeout, $http, NotificationCenter, Notifier) {
   if (!getVisible()) {
@@ -10,6 +11,7 @@ export function pollingNotifications($timeout, $http, NotificationCenter, Notifi
   const notify = new Notifier();
   $timeout(function pullNotifications() {
     return $http.get(addBasePath('/api/notification_center/notification'), {
+      headers: addSystemApiHeader({}),
       params: {
         from: config.get('lastPulledAt'),
         size: config.get('maxSize')
