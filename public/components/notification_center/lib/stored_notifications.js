@@ -20,12 +20,14 @@ export class StoredNotifications extends Array {
       .filter(item => {
         const mergeable = find(this, pick(item, ['type', 'content']));
         if (mergeable) {
+          mergeable.timestamp = item.timestamp;
           mergeable.count += (item.count || 1);
           mergeable.stacks = union(mergeable.stacks, item.stacks);
         }
         return !mergeable;
       })
-      .map(item => defaults(item, { timestamp, count: 1 }));
+      .map(item => defaults(item, { timestamp, count: 1 }))
+      .value();
       const result = super.push(...freshItems);
       this.save();
       return result;
