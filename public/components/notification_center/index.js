@@ -1,8 +1,8 @@
 import { chain } from 'lodash';
 import { element } from 'angular';
 import moment from 'moment-timezone';
-import uiModules from 'ui/modules';
-import Notifier from 'ui/notify';
+import { uiModules } from 'ui/modules';
+import { notify } from 'ui/notify';
 import { StoredNotifications } from './lib/stored_notifications';
 import { StoredConfig } from './lib/stored_config';
 import { pollingNotifications } from './lib/polling_notifications';
@@ -36,7 +36,7 @@ module.directive('notificationCenter', (config, NotificationCenter, $filter) => 
     },
     controller: ($scope) => {
       const notifs = $scope.notifs = NotificationCenter.notifications;
-      $scope.$watchCollection(() => Notifier._notifs, change => {
+      $scope.$watchCollection(() => notify._notifs, change => {
         const timestamp = new Date().valueOf();
         const newNotifs = chain(change)
         .filter(notif => !notif.timestamp)
