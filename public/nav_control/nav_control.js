@@ -1,12 +1,12 @@
 import { constant, includes } from 'lodash';
 import { element } from 'angular';
-import uiModules from 'ui/modules';
-import registry from 'ui/registry/chrome_nav_controls';
+import { uiModules } from 'ui/modules';
+import { chromeNavControlsRegistry } from 'ui/registry/chrome_nav_controls';
 import '../components/notification_center';
 import template from './nav_control.html';
 import 'ui/angular-bootstrap';
 
-registry.register(constant({
+chromeNavControlsRegistry.register(constant({
   name: 'notification_center',
   order: 1000,
   template
