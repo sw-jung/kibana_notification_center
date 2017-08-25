@@ -1,6 +1,7 @@
 import { readdirSync, lstatSync } from 'fs';
 import { resolve } from 'path';
 import { init } from './server/init';
+import { replaceInjectedVars } from './server/lib/replace_injected_vars';
 
 export default function (kibana) {
   const translations = (function getTranslations(translationsPath) {
@@ -24,7 +25,9 @@ export default function (kibana) {
 
       chromeNavControls: [
         'plugins/notification_center/nav_control'
-      ]
+      ],
+
+      replaceInjectedVars
 
     },
 

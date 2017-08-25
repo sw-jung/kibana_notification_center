@@ -1,8 +1,8 @@
 import { has, get, set, isObject } from 'lodash';
 
 export class StoredConfig {
-  constructor(defaultConfig = {}, key = 'KBN::NOTIFS::CONFIG') {
-    this.key = key;
+  constructor(key, defaultConfig = {}) {
+    this.key = `KBN::NOTIFS::CONFIG-${key}`;
     this.config = defaultConfig;
   };
 
