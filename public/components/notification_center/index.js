@@ -14,9 +14,9 @@ const module = uiModules.get('notification_center', []);
 
 module.run(pollingNotifications);
 
-module.service('NotificationCenter', () => {
-  const notifications = new StoredNotifications().load();
-  const config = new StoredConfig({
+module.service('NotificationCenter', (clusterUuid) => {
+  const notifications = new StoredNotifications(clusterUuid).load();
+  const config = new StoredConfig(clusterUuid, {
     pollingInterval: 10000,
     lastPulledAt: Date.now()
   }).load().save();
