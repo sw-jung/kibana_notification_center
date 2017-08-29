@@ -40,7 +40,9 @@ $ bin/kibana-plugin install <installation file's url>
 
 > **NOTE: How can I do if I cannot find version I want?**  
 > I'm sorry for that. This plugin not all of kibana versions are supported.  
-> If you need unsupported version, please test nearest version.
+> If you need unsupported version, please test nearest version.  
+> In this case, you need to modify the kibana.version field in package.json.  
+> **Currently minimum support version is v5.4.3**
 
 ## Configuration
 
