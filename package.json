@@ -1,10 +1,10 @@
 {
   "name": "notification_center",
-  "version": "5.6.0",
+  "version": "5.6.1",
   "description": "Notification center for kibana",
   "main": "index.js",
   "kibana": {
-    "version": "5.6.0"
+    "version": "5.6.1"
   },
   "scripts": {
     "lint": "eslint",
