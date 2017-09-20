@@ -76,10 +76,19 @@ notification_center:
 
 * **URL**: /api/notification_center/notification
 * **Method**: POST|PUT
+* **Headers**
+```javascript
+{
+  "Authorization": "your credential token here", // If you use x-pack security.
+  "Content-Type": "application/json",
+  "kbn-version": "your kibana version here" // This is kibana spec. ex: 5.6.0
+}
+```
+
 * **Data Params**
 ```javascript
 {
-  "type": "error|warning|info" // Default "info"
+  "type": "error|warning|info" // Optional. Default "info"
   "content": "Write your notification content here." // Required
 }
 ```
