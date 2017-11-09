@@ -1,16 +1,14 @@
 import { defaults, set, get } from 'lodash';
 import Joi from 'joi';
 import moment from 'moment';
-import 'twix';
 import { constants } from '../../lib/constants';
-import { parsePartitionUnit, parseWithTimestamp } from '../../lib/parse_index_pattern';
+import { parseWithWildcard } from '../../lib/parse_index_pattern';
 
 export function pull(server) {
-  const index = server.config().get('notification_center.index');
+  const index = parseWithWildcard(server.config().get('notification_center.index'));
   const type = 'notification';
   const { callWithRequest } = server.plugins.elasticsearch.getCluster('data');
   const { maxSize } = server.config().get('notification_center.api.pull');
-  const partitionUnit = parsePartitionUnit(index);
 
   server.route({
     path: `${constants.API_BASE_URL}/notification`,
@@ -19,10 +17,7 @@ export function pull(server) {
       const { size, from, to } = request.query;
 
       callWithRequest(request, 'search', {
-        index: partitionUnit ? moment(from)
-          .twix(moment(to))
-          .toArray(partitionUnit)
-          .map(time => parseWithTimestamp(index, time)) : index,
+        index,
         type,
         size,
         ignoreUnavailable: true,
