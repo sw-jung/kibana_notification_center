@@ -1,6 +1,6 @@
 {
   "name": "notification_center",
-  "version": "5.5.3",
+  "version": "5.5.3-patch1",
   "description": "Notification center for kibana",
   "main": "index.js",
   "kibana": {
