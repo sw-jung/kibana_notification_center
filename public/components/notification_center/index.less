@@ -1,5 +1,12 @@
+@globalTextColor--darkTheme: #cecece;
+@globalLinkColor-isHover--darkTheme: #def2f6;
+@globalColorMediumGray: #999;
+@globalColorDarkGray: #666;
+@borderColor--darkTheme: #000;
+@backgroundColor--darkTheme: #525252;
+
 notification-center {
-  position: fixed;
+  position: fixed!important;
   right: 0;
   width: 500px;
   max-width: ~'calc(100% - 53px)';
@@ -25,4 +32,40 @@ notification-center {
       margin: 0;
     };
   };
+
+  .theme-dark+&.support-dark-theme {
+    background-color: @backgroundColor--darkTheme;
+    border-color: @borderColor--darkTheme;
+    color: @globalTextColor--darkTheme;
+    
+    .kuiView {
+      background-color: @backgroundColor--darkTheme;
+      border-color: @borderColor--darkTheme;
+    }
+
+    .kuiHeaderBar {
+      border-color: @globalColorDarkGray;
+    }
+
+    .kuiMenuItem {
+      border-color: @globalColorDarkGray;
+    }
+
+    .kuiMenuButton--basic {
+      background-color: @backgroundColor--darkTheme;
+      color: @globalTextColor--darkTheme;
+
+      &:hover {
+        color: #fff!important;
+      }
+    }
+
+    .kuiEventBody__message {
+      color: @globalTextColor--darkTheme;
+    }
+
+    .kuiEventBody__metadata {
+      color: @globalColorMediumGray;
+    }
+  }
 };

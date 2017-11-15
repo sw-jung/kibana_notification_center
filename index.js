@@ -15,6 +15,14 @@ export default function (kibana) {
         'plugins/notification_center/nav_control'
       ],
 
+      injectDefaultVars(server) {
+        return {
+          notificationCenter: {
+            supportDarkTheme: server.config().get('notification_center.supportDarkTheme')
+          }
+        };
+      },
+
       replaceInjectedVars
 
     },
@@ -32,7 +40,8 @@ export default function (kibana) {
           pull: Joi.object({
             maxSize: Joi.number().default(100)
           }).default()
-        }).default()
+        }).default(),
+        supportDarkTheme: Joi.boolean().default(true)
       }).default();
     },
 
