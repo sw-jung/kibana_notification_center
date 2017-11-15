@@ -1,4 +1,3 @@
-import { readdirSync, lstatSync } from 'fs';
 import { resolve } from 'path';
 import { init } from './server/init';
 import { replaceInjectedVars } from './server/lib/replace_injected_vars';
@@ -9,6 +8,7 @@ export default function (kibana) {
     configPrefix: 'notification_center',
     require: ['elasticsearch'],
     name: 'notification_center',
+    publicDir: resolve(__dirname, 'public'),
     uiExports: {
 
       chromeNavControls: [
