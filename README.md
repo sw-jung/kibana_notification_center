@@ -68,6 +68,8 @@ notification_center:
     enabled: true
     # The maximum size of the notification that user can pull from the server in a single request.
     pull.maxSize: 100
+
+  supportDarkTheme: true
 ```
 
 ## API
