@@ -31,9 +31,6 @@ module.directive('notificationCenter', (config, NotificationCenter, $filter) => 
   return {
     restrict: 'E',
     template,
-    scope: {
-      notifs: '=list'
-    },
     controller: ($scope) => {
       const notifs = $scope.notifs = NotificationCenter.notifications;
       $scope.$watchCollection(() => notify._notifs, change => {
