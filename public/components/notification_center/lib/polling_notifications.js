@@ -23,11 +23,11 @@ export function pollingNotifications($timeout, $http, NotificationCenter, Notifi
       .forEach(notification => {
         notify[notification.type || 'info'](notification.content);
       })
-      .maxBy('timestamp')
-      .get('timestamp')
+      .map('timestamp')
+      .max()
       .value();
 
-      if (lastPulledAt) {
+      if (lastPulledAt > 0) {
         config.set('lastPulledAt', lastPulledAt);
         config.save();
       }
