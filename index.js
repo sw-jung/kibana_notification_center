@@ -12,7 +12,7 @@ export default function (kibana) {
     uiExports: {
 
       chromeNavControls: [
-        'plugins/notification_center/nav_control'
+        'plugins/notification_center/nav_control/nav_control'
       ],
 
       injectDefaultVars(server) {
