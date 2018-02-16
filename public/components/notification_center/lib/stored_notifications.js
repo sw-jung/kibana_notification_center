@@ -2,9 +2,9 @@ import { find, isArray, remove, chain, pick, defaults, union } from 'lodash';
 
 const NOT_INSERTABLE_ERROR = new Error('StoredNotifications cannot insert directly. Please use `StoredNotifications.merge`.');
 export class StoredNotifications extends Array {
-  constructor(key) {
+  constructor() {
     super();
-    this.key = `KBN::NOTIFS-${key}`;
+    this.key = `KBN::NOTIFS`;
 
     this.push = (...items) => {
       throw NOT_INSERTABLE_ERROR;
